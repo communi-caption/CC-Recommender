@@ -34,5 +34,9 @@ namespace Recommender.Api {
             list.Sort((x, y) => x.Item2.CompareTo(y.Item2));
             return list.Take(count).Select(x => x.Item1).ToArray();
         }
+
+        public string Info() {
+            return predictor.DebugInfo;
+        }
     }
 }

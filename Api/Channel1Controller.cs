@@ -28,6 +28,11 @@ namespace Recommender.Api {
             return Ok("trained");
         }
 
+        [HttpGet("info")]
+        public IActionResult Info() {
+            return Ok(service.Info());
+        }
+
         [HttpGet("predict/{userId}/{itemId}")]
         public IActionResult Predict([FromRoute] int userId, [FromRoute] int itemId) {
             float prediction;

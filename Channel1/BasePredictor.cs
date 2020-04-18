@@ -14,9 +14,15 @@ namespace Channel1 {
         private int[] userIdsArray;
         private int K, L;
 
+        public string DebugInfo { get; private set; }
+
         public BasePredictor(int K, int L) {
             this.K = K;
             this.L = L;
+        }
+
+        private void SetDebugInfo(string info) {
+            this.DebugInfo = info;
         }
 
         public void Train(IEnumerable<Rating> ratings) {
@@ -61,16 +67,14 @@ namespace Channel1 {
                         continue;
                     userSimilarities.Add(pairId, GetSimilarity(user1, user2));
                 }
-                Console.Write((int)((float)userSimilarities.Count / (userIds.Count * userIds.Count - userIds.Count) * 100) + "%");
+                SetDebugInfo((int)((float)userSimilarities.Count / (userIds.Count * userIds.Count - userIds.Count) * 100) + "%");
             }
 
             userNeighbors = new Dictionary<int, int[]>();
             foreach (var userId in userIds) {
                 userNeighbors[userId] = MostSimilarUsers(userId);
-                Console.Write((int)((float)userNeighbors.Count / userIds.Count * 50 + 50) + "%");
+                SetDebugInfo((int)((float)userNeighbors.Count / userIds.Count * 50 + 50) + "%");
             }
-
-            Console.WriteLine();
         }
 
         protected abstract void ComputeSimilarity();
