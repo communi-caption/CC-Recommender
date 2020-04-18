@@ -1,0 +1,8 @@
+.vs
+bin
+database/*
+obj
+deploy
+medias
+thumbnails
+texts
