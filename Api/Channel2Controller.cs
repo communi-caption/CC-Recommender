@@ -57,10 +57,13 @@ namespace Recommender.Api {
                 data = documents[docId]
             }));
 
-            int index = (int)(JObject.Parse(json)["id"]);
-            int id = indexes[index];
+            var res = (JArray)(JObject.Parse(json)["id"]);
+            var list = new List<int>();
+            foreach (var item in res) {
+                list.Add(indexes[(int)(item)]);
+            }
 
-            return Ok(id);
+            return Ok(list);
         }
     }
 }
