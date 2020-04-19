@@ -11,10 +11,9 @@ namespace Recommender.Api
     public class Channel3Service
     {
         private static readonly HttpClient client = new HttpClient();
-
         public async Task<string[]> getPeopleAlsoSearchForAsync(string workOfArt)
         {
-            var response = await client.GetStringAsync($"https://app.zenserp.com/api/v2/lr=lang_tr&hl=tr&search?apikey=e73735c0-80df-11ea-b12e-c7804e1da203&q={workOfArt}");
+            var response = await client.GetStringAsync($"https://app.zenserp.com/api/v2/search?apikey=bf36c2c0-8263-11ea-9b0f-6f1e52de7167&q={workOfArt}&lr=lang_tr&hl=tr&location=Turkey&gl=tr");
             var x = JObject.Parse(response);
             string[] result;
             if (x["knowledge_graph"][0]["people_also_search_for"] != null)
@@ -23,6 +22,5 @@ namespace Recommender.Api
                 return new string[0];
             return result;
         }
-
     }
 }
