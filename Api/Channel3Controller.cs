@@ -17,8 +17,8 @@ namespace Recommender.Api
                 this.service = service;
             }
 
-            [HttpGet("predict/{workOfArt}")]
-            public async Task<IActionResult> Predict([FromRoute] string workOfArt)
+            [HttpPost("predict")]
+            public async Task<IActionResult> Predict([FromBody] string workOfArt)
             {
                 string[] peopleAlsoSearch;
                 try
