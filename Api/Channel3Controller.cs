@@ -21,11 +21,9 @@ namespace Recommender.Api
             public async Task<IActionResult> Predict([FromRoute] string workOfArt)
             {
                 string[] peopleAlsoSearch;
-            System.Diagnostics.Debug.WriteLine(workOfArt);
-            try
-            {
-                peopleAlsoSearch = await service.getPeopleAlsoSearchForAsync(workOfArt);
-
+                try
+                {
+                    peopleAlsoSearch = await service.getPeopleAlsoSearchForAsync(workOfArt);
                 }
                 catch (Exception e)
                 {
@@ -33,9 +31,16 @@ namespace Recommender.Api
                 }
 
                 return Ok(peopleAlsoSearch);
+                /*
+                 * [
+                    "Francisco Goya",
+                    "Vincent van Gogh",
+                    "Salvador Dalí",
+                    "Leonardo da Vinci",
+                    "Claude Monet"
+                   ]
+                */
             }
-
-          
         }
     }
 

@@ -11,7 +11,6 @@ namespace Recommender.Api
     public class Channel3Service
     {
         private static readonly HttpClient client = new HttpClient();
-        ArrayList list = new ArrayList();
 
         public async Task<string[]> getPeopleAlsoSearchForAsync(string workOfArt)
         {
