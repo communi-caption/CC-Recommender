@@ -20,20 +20,26 @@ namespace Recommender.Api {
         public Channel2Controller() {
         }
 
+        public class TrainTuple {
+            public int[] Item1 { get; set; }
+            public string[] Item2 { get; set; }
+        }
+
         [HttpPost("train")]
-        public IActionResult Train([FromBody] KeyValuePair<int, string>[] data) {
+        public IActionResult Train([FromBody] TrainTuple data) {
             indexCache = new Dictionary<int, int>();
             documentCache = new Dictionary<int, string>();
-            for (int i = 0; i < data.Length; i++) {
-                indexCache[i] = data[i].Key;
-                documentCache[data[i].Key] = data[i].Value;
+            for (int i = 0; i < data.Item1.Length; i++) {
+                indexCache[i] = data.Item1[i];
+                documentCache[data.Item1[i]] = data.Item2[i];
             }
 
             string path = System.IO.Directory.GetCurrentDirectory() + "/ch2.txt";
-            System.IO.File.WriteAllText(path, string.Join(Environment.NewLine, data.Select(x => x.Value)));
-
+            System.IO.File.WriteAllText(path, string.Join(Environment.NewLine, data.Item2));
+            
             var web = new WebClient();
             web.Proxy = null;
+            web.Headers[HttpRequestHeader.ContentType] = "application/json";
             web.UploadString($"{HOST}/train", "POST", JsonConvert.SerializeObject(path));
 
             return Ok("trained");
@@ -45,9 +51,10 @@ namespace Recommender.Api {
             var documents = documentCache;
 
             var web = new WebClient();
+            web.Headers[HttpRequestHeader.ContentType] = "application/json";
             web.Proxy = null;
-            var json = web.UploadString($"{HOST}/similartiy", "POST", JsonConvert.SerializeObject(new {
-                data = documents.GetValueOrDefault(docId) ?? ""
+            var json = web.UploadString($"{HOST}/similarity", "POST", JsonConvert.SerializeObject(new {
+                data = documents[docId]
             }));
 
             int index = (int)(JObject.Parse(json)["id"]);
