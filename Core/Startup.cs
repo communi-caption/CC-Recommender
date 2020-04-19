@@ -29,6 +29,7 @@ namespace Recommender {
         public void ConfigureServices(IServiceCollection services) {
             services.AddRazorPages();
             services.AddSingleton<Channel1Service>();
+            services.AddSingleton<Channel3Service>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
