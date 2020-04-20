@@ -57,17 +57,12 @@ namespace Recommender.Api {
                 data = documents[docId]
             }));
 
-
             var res = (JArray)(JObject.Parse(json)["id"]);
             var list = new List<int>();
-
-            Console.Error.WriteLine(JsonConvert.SerializeObject(res));
 
             foreach (var item in res) {
                 list.Add(indexes[(int)(item)]);
             }
-            Console.Error.WriteLine(JsonConvert.SerializeObject(indexes));
-            Console.Error.WriteLine(JsonConvert.SerializeObject(list));
 
             return Ok(list);
         }
