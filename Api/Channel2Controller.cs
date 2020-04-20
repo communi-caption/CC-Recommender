@@ -35,7 +35,7 @@ namespace Recommender.Api {
             }
 
             string path = System.IO.Directory.GetCurrentDirectory() + "/ch2.txt";
-            System.IO.File.WriteAllText(path, JsonConvert.SerializeObject(data.Item2));
+            System.IO.File.WriteAllText(path, string.Join(Environment.NewLine, data.Item2).Trim());
             
             var web = new WebClient();
             web.Proxy = null;
@@ -57,11 +57,17 @@ namespace Recommender.Api {
                 data = documents[docId]
             }));
 
+
             var res = (JArray)(JObject.Parse(json)["id"]);
             var list = new List<int>();
+
+            Console.Error.WriteLine(JsonConvert.SerializeObject(res));
+
             foreach (var item in res) {
                 list.Add(indexes[(int)(item)]);
             }
+            Console.Error.WriteLine(JsonConvert.SerializeObject(indexes));
+            Console.Error.WriteLine(JsonConvert.SerializeObject(list));
 
             return Ok(list);
         }
