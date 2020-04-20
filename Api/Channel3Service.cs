@@ -13,7 +13,7 @@ namespace Recommender.Api
         private static readonly HttpClient client = new HttpClient();
         public async Task<string[]> getPeopleAlsoSearchForAsync(string workOfArt)
         {
-            var response = await client.GetStringAsync($"https://app.zenserp.com/api/v2/search?apikey=33bf6160-82ae-11ea-b331-c350760a9587&q={workOfArt}&lr=lang_tr&hl=tr&location=Turkey&gl=tr");
+            var response = await client.GetStringAsync($"https://app.zenserp.com/api/v2/search?apikey=84e54510-82ae-11ea-8e99-b9e63392392d&q={workOfArt}&lr=lang_tr&hl=tr&location=Turkey&gl=tr");
             var x = JObject.Parse(response);
             string[] result;
             if (x["knowledge_graph"][0]["people_also_search_for"] != null)
