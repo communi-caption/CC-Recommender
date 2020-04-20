@@ -35,7 +35,7 @@ namespace Recommender.Api {
             }
 
             string path = System.IO.Directory.GetCurrentDirectory() + "/ch2.txt";
-            System.IO.File.WriteAllText(path, string.Join(Environment.NewLine, data.Item2));
+            System.IO.File.WriteAllText(path, JsonConvert.SerializeObject(data.Item2));
             
             var web = new WebClient();
             web.Proxy = null;
