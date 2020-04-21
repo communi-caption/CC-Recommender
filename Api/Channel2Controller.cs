@@ -60,6 +60,7 @@ namespace Recommender.Api {
             var res = (JArray)(JObject.Parse(json)["id"]);
             var list = new List<int>();
 
+            Console.Error.WriteLine(JsonConvert.SerializeObject(res));
             foreach (var item in res) {
                 list.Add(indexes[(int)(item)]);
             }
